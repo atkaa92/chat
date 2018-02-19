@@ -1,4 +1,4 @@
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5000; 
 if(process.env.NODE_ENV === 'production'){
 	module.exports = {
 		mongoURI: 'mongodb://chat92:kar6670929497@ds233895.mlab.com:33895/chat-92',
