@@ -81,6 +81,11 @@ app.use((req, res, next) => {
     next();
 })
 
+// io.configure(function () {
+//     io.set("transports", ["xhr-polling"]);
+//     io.set("polling duration", 10);
+// });
+
 //routes
 const port = process.env.PORT || 5000;
 
@@ -97,9 +102,10 @@ app.use('/users', users);
 //listen 
 var server = app.listen(port, () => {
     console.log(`Server started on port ${port}`);
+    transports:  ["xhr-polling"] ;
 })
-
 var io = socket(server);
+
 io.on('connection', (socket) => {
     console.log('Socket connection ', socket.id);
 
