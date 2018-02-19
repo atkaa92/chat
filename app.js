@@ -8,7 +8,7 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const methodOverride = require('method-override')
 const socket = require('socket.io');
-
+const { returnForScript } = require('./helpers/hbs');
 const app = express()
 
 
@@ -34,8 +34,14 @@ mongoose.connect(db.mongoURI)
     .catch(err => console.log(err));
 
 //handlebars middleware
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 
+//handlebars middleware
+app.engine('handlebars', exphbs({
+	helpers: {
+		returnForScript: returnForScript,
+	},
+	defaultLayout: 'main'
+}));
 //set view engine
 app.set('view engine', 'handlebars');
 
@@ -71,6 +77,7 @@ app.use((req, res, next) => {
     res.locals.info_msg = req.flash('info_msg');
     res.locals.error = req.flash('error');
     res.locals.user = req.user || null;
+    res.locals.ioURI = db.ioURI;
     next();
 })
 

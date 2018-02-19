@@ -16,7 +16,8 @@ router.get('/', ensureAuthenticaed, (req, res) => {
                 .then(chats => {
                     res.render('chats/index', {
                         chats: chats,
-                        users: users
+                        users: users,
+                        // ioURI: ioURI
                     })
                 })
         });
