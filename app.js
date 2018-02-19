@@ -82,14 +82,14 @@ app.use((req, res, next) => {
 })
 
 //routes
-app.get('/', (req, res) => { res.render('welcome') })
+app.get('/', (req, res) => { res.send(process.env.PORT) })
 
 //use routes
 app.use('/chats', chats);
 app.use('/users', users);
 
 //listen 
-const port = 32333;
+const port = process.env.PORT || 5000;
 var server = app.listen(port, () => {
     console.log(`Server started on port ${port}`);
 })
