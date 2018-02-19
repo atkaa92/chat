@@ -89,7 +89,7 @@ app.use('/chats', chats);
 app.use('/users', users);
 
 //listen 
-const port = process.env.PORT || 5000;
+const port = 32333;
 var server = app.listen(port, () => {
     console.log(`Server started on port ${port}`);
 })
