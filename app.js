@@ -37,10 +37,10 @@ mongoose.connect(db.mongoURI)
 
 //handlebars middleware
 app.engine('handlebars', exphbs({
-	helpers: {
-		returnForScript: returnForScript,
-	},
-	defaultLayout: 'main'
+    helpers: {
+        returnForScript: returnForScript,
+    },
+    defaultLayout: 'main'
 }));
 //set view engine
 app.set('view engine', 'handlebars');
@@ -82,14 +82,19 @@ app.use((req, res, next) => {
 })
 
 //routes
-app.get('/', (req, res) => { res.send(process.env.PORT) })
+const port = process.env.PORT || 5000;
 
+app.get('/', (req, res) => {
+    const title = 'Welcome;'
+    res.render('welcome', {
+        port: port
+    })
+})
 //use routes
 app.use('/chats', chats);
 app.use('/users', users);
 
 //listen 
-const port = process.env.PORT || 5000;
 var server = app.listen(port, () => {
     console.log(`Server started on port ${port}`);
 })
@@ -99,7 +104,7 @@ io.on('connection', (socket) => {
     console.log('Socket connection ', socket.id);
 
     socket.on('chat', function (data) {
-        const newMessage = { 
+        const newMessage = {
             message: data.message,
             userFrom: data.userFrom,
         }

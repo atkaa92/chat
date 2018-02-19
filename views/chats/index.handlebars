@@ -1,7 +1,7 @@
 <div class="row pr0 pl0">
     <div class="col-md-9 pr0 pl0" id="chat">
         <div id="feedback"></div>
-        {{!-- <input id="url" type="hidden" value="{{ returnForScript ioURI }}" /> --}}
+        <input id="url" type="hidden" value="{{ ioURI }}" />
         <input id="user" data-id="{{user.id}}" type="hidden" value="{{user.name}}" />
         <input id="message" type="text" placeholder="Message" />
         <button id="send">Send</button>
@@ -28,9 +28,9 @@
 
 
 <script>
-//var url = user = $('#url').val();
-//var socket = io.connect(url);
-var socket = io.connect('https://obscure-refuge-74658.herokuapp.com:32333');
+
+var url = user = $('#url').val();
+var socket = io.connect(url);
 
 
 var message = $('#message'),
