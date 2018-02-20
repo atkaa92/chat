@@ -102,7 +102,6 @@ app.use('/users', users);
 //listen 
 var server = app.listen(port, () => {
     console.log(`Server started on port ${port}`);
-    transports:  ["xhr-polling"] ;
 })
 var io = socket(server);
 
