@@ -30,7 +30,8 @@
 <script>
 
 var url = user = $('#url').val();
-var socket = io.connect(url);
+//var socket = io.connect(url);
+var socket = io();
 
 
 var message = $('#message'),
