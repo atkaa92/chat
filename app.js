@@ -8,9 +8,7 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const methodOverride = require('method-override')
 const socket = require('socket.io');
-const { returnForScript } = require('./helpers/hbs');
 const app = express()
-
 
 //load modals
 require('./models/User');
@@ -34,12 +32,7 @@ mongoose.connect(db.mongoURI)
     .catch(err => console.log(err));
 
 //handlebars middleware
-
-//handlebars middleware
 app.engine('handlebars', exphbs({
-    helpers: {
-        returnForScript: returnForScript,
-    },
     defaultLayout: 'main'
 }));
 //set view engine
@@ -81,20 +74,12 @@ app.use((req, res, next) => {
     next();
 })
 
-// io.configure(function () {
-//     io.set("transports", ["xhr-polling"]);
-//     io.set("polling duration", 10);
-// });
-
 //routes
 const port = process.env.PORT || 5000;
 
-app.get('/', (req, res) => {
-    const title = 'Welcome;'
-    res.render('welcome', {
-        port: port
-    })
-})
+//welcome
+app.get('/', (req, res) => { res.render('welcome') })
+
 //use routes
 app.use('/chats', chats);
 app.use('/users', users);

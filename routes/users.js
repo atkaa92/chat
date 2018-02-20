@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const router = express.Router();
-const {ensureAuthenticaed} = require('../helpers/auth')
+const { ensureAuthenticaed } = require('../helpers/auth')
 
 const Chat = mongoose.model('chats')
 const User = mongoose.model('users')

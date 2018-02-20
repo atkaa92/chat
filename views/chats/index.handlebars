@@ -1,66 +1,60 @@
 <div class="row pr0 pl0">
     <div class="col-md-9 pr0 pl0" id="chat">
         <div id="feedback"></div>
-        <input id="url" type="hidden" value="{{ ioURI }}" />
         <input id="user" data-id="{{user.id}}" type="hidden" value="{{user.name}}" />
         <input id="message" type="text" placeholder="Message" />
         <button id="send">Send</button>
         <div id="chat-window">
             <div id="output">
                 {{#each chats}}
-                     <p><strong> {{userFrom.name}} : </strong> {{message}} </p>            
+                <p>
+                    <strong> {{userFrom.name}} : </strong> {{message}} </p>
                 {{/each}}
             </div>
-            
+
         </div>
-        
     </div>
     <div class="col-md-3">
-    {{#each users}}
+        {{#each users}}
         <div class="otherUsers">
-            <p>{{name}} - <small>{{email}}</small></p>
+            <p>{{name}} -
+                <small>{{email}}</small>
+            </p>
         </div>
-	{{else}}
-	    <p>No other users</p>
-	{{/each}}
+        {{else}}
+        <p>No other users</p>
+        {{/each}}
     </div>
 </div>
 
 
 <script>
+    var socket = io();
+    var message = $('#message'),
+        user = $('#user'),
+        btn = $('#send'),
+        output = $('#output'),
+        feedback = $('#feedback');
 
-var url = user = $('#url').val();
-//var socket = io.connect(url);
-var socket = io();
-
-
-var message = $('#message'),
-      user = $('#user'),
-      btn = $('#send'),
-      output = $('#output'),
-      feedback = $('#feedback');
-
-// Emit events
-btn.on('click', function(){
-    socket.emit('chat', {
-        userFrom: user.attr('data-id'),
-        message: message.val(),
-        user: user.val()
+    btn.on('click', function () {
+        socket.emit('chat', {
+            userFrom: user.attr('data-id'),
+            message: message.val(),
+            user: user.val()
+        });
+        message.val('');
     });
-    message.val('');
-});
 
-message.on('keypress', function(){
-    socket.emit('typing', user.val());
-})
+    message.on('keypress', function () {
+        socket.emit('typing', user.val());
+    })
 
-// Listen for events
-socket.on('chat', function(data){
-    feedback.html('');
-    output.prepend('<p><strong>' + data.user + ': </strong>' + data.message + '</p>');
-});
+    socket.on('chat', function (data) {
+        feedback.html('');
+        output.prepend('<p><strong>' + data.user + ': </strong>' + data.message + '</p>');
+    });
 
-socket.on('typing', function(data){
-    feedback.html('<p><em>' + data + ' is typing a message...</em></p>');
-});
+    socket.on('typing', function (data) {
+        feedback.html('<p><em>' + data + ' is typing a message...</em></p>');
+    });
 </script>
