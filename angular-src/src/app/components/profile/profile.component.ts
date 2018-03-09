@@ -1,29 +1,24 @@
-import { ChatService } from './../../services/chat.service';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from "@angular/router";
 import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
-  selector: 'app-chat',
-  templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.css']
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.css']
 })
-export class ChatComponent implements OnInit {
-  users: any = [];
-  chats: any;
-  user: Object;
+export class ProfileComponent implements OnInit {
 
+  user: Object;
 
   constructor(
     private flashMessage: FlashMessagesService,
     private authService: AuthService,
-    private router: Router,
-    private chatService: ChatService
+    private router: Router
   ) { }
 
   ngOnInit() {
-    console.log(this.users)
     this.authService.getProfile().subscribe(profile => {
       this.user = profile.user;
     },
@@ -31,17 +26,6 @@ export class ChatComponent implements OnInit {
         this.flashMessage.show("Not Autherized", { cssClass: 'alert-success', timeout: 3000 });
         this.router.navigate(['/login']);
         return false;
-      })
-
-    this.chatService.getOtherProfiles().subscribe(data => {
-      this.users = data.users;
-      this.chats = data.chats;
-      console.log(this.users);
-      
-    },
-      err => {
-        console.log(err);
-
       })
   }
 

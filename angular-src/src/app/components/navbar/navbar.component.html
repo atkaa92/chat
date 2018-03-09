@@ -12,8 +12,14 @@
     </div>
     <div id="navbar" class="collapse navbar-collapse">
       <ul class="nav navbar-nav navbar-left">
-        <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+        <li *ngIf="!checkLoggedIn()" class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
           <a class="nav-link" [routerLink]="['/']">Welcome</a>
+        </li>
+        <li *ngIf="checkLoggedIn()" class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+          <a class="nav-link" [routerLink]="['/profile']">Profile</a>
+        </li>
+        <li *ngIf="checkLoggedIn()" class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+          <a class="nav-link" [routerLink]="['/chat']">Chat</a>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">

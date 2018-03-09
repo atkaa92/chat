@@ -1,3 +1,4 @@
+import { ChatService } from './services/chat.service';
 import { AuthGuard } from './guards/auth.guard';
 import { AuthService } from './services/auth.service';
 import { RouterModule, Routes } from '@angular/router';
@@ -13,6 +14,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { ValidateService } from './services/validate.service';
 import { FlashMessagesModule } from "angular2-flash-messages";
+import { ProfileComponent } from './components/profile/profile.component';
 
 
 const appRoutes: Routes = [
@@ -20,6 +22,7 @@ const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'chat', component: ChatComponent, canActivate: [AuthGuard] },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   
 ];
 
@@ -31,6 +34,7 @@ const appRoutes: Routes = [
     LoginComponent,
     RegisterComponent,
     ChatComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,7 +46,8 @@ const appRoutes: Routes = [
   providers: [
     ValidateService,
     AuthService,
-    AuthGuard    
+    AuthGuard,
+    ChatService    
   ],
   bootstrap: [AppComponent]
 })

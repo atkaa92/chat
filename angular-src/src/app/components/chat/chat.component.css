@@ -83,3 +83,11 @@
     width: 100%;
     border-radius: 0 0 2px 2px;
 }
+
+.colorGray{
+    color: gray;
+}
+
+.otherUsers p{
+    cursor: pointer;
+}

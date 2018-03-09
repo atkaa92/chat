@@ -13,14 +13,6 @@ const User = mongoose.model('users')
 const db = require('../config/database');
 
 
-// router.post('/login', (req, res, next) => {
-//     passport.authenticate('local', {
-//         successRedirect: '/chats',
-//         failureRedirect: '/users/login',
-//         failureFlash: true
-//     })(req, res, next);
-// })
-
 router.post('/login', (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
