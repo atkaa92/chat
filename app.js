@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const passport = require('passport');
@@ -47,6 +48,8 @@ app.use(bodyParser.json());
 
 //override middleware
 app.use(methodOverride('_method'));
+
+app.use(cors())
 
 //session middleware
 app.use(session({

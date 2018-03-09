@@ -1,0 +1,31 @@
+<h2  class="page-header">Welcome {{ user?.name }}</h2>
+{{user?._id}}
+<div *ngIf="user" class="row pr0 pl0">
+    <div class="col-md-9 pr0 pl0" id="chat">
+        <div id="feedback"></div>
+        <input id="user" data-id="" type="hidden" value="{{ user.name }}" />
+        <input id="message" type="text" placeholder="Message" />
+        <button id="send">Send</button>
+        <div id="chat-window">
+            <div id="output">
+                <!-- {{#each chats}}
+                <p>
+                    <strong> {{userFrom.name}} : </strong> {{message}} </p>
+                {{/each}} -->
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-3">
+        <!-- {{#each users}}
+        <div class="otherUsers">
+            <p>{{name}} -
+                <small>{{email}}</small>
+            </p>
+        </div>
+        {{else}}
+        <p>No other users</p>
+        {{/each}} -->
+    </div>
+</div>
+  
