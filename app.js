@@ -80,9 +80,6 @@ app.use((req, res, next) => {
 //routes
 const port = process.env.PORT || 5000;
 
-//welcome
-app.get('/', (req, res) => { res.render('welcome') })
-
 //use routes
 app.use('/chats', chats);
 app.use('/users', users);
@@ -94,23 +91,26 @@ var server = app.listen(port, () => {
 var io = socket(server);
 
 io.on('connection', (socket) => {
-    console.log('Socket connection ', socket.id);
+    console.log('Socket new connection ', socket.id);
 
     socket.on('chat', function (data) {
-        const newMessage = {
-            message: data.message,
-            userFrom: data.userFrom,
-        }
-        new Chat(newMessage)
-            .save()
-            .then(story => {
-                io.sockets.emit('chat', data);
-            })
-    });
+        console.log(data);
+    })
+    // socket.on('chat', function (data) {
+    //     const newMessage = {
+    //         message: data.message,
+    //         userFrom: data.userFrom,
+    //     }
+    //     new Chat(newMessage)
+    //         .save()
+    //         .then(story => {
+    //             io.sockets.emit('chat', data);
+    //         })
+    // });
 
-    socket.on('typing', function (data) {
-        socket.broadcast.emit('typing', data);
-    });
+    // socket.on('typing', function (data) {
+    //     socket.broadcast.emit('typing', data);
+    // });
 
 });
 

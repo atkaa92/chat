@@ -29,7 +29,6 @@ router.get('/', passport.authenticate('jwt', {
                     })
                 })
         });
-
 })
 
 module.exports = router;

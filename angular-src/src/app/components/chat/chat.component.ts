@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from "@angular/router";
 import { FlashMessagesService } from 'angular2-flash-messages';
+import * as io from 'socket.io-client';
 
 @Component({
   selector: 'app-chat',
@@ -12,6 +13,8 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 export class ChatComponent implements OnInit {
   users: any = [];
   chats: any;
+  socket;
+  message;
   user: Object;
 
 
@@ -20,10 +23,10 @@ export class ChatComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private chatService: ChatService
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
-    console.log(this.users)
     this.authService.getProfile().subscribe(profile => {
       this.user = profile.user;
     },
@@ -36,13 +39,21 @@ export class ChatComponent implements OnInit {
     this.chatService.getOtherProfiles().subscribe(data => {
       this.users = data.users;
       this.chats = data.chats;
-      console.log(this.users);
-      
     },
       err => {
         console.log(err);
-
       })
+
+    // socket
+    this.socket = io()
+  }
+
+  onMessageSend(val) {
+    this.socket.emit('chat', {
+      userFrom: this.user,
+      userTo: val.getAttribute('data-user-id'),
+      message: this.message,
+    });
   }
 
 }

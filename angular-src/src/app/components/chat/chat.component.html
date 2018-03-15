@@ -1,29 +1,24 @@
-<div *ngIf="user" class="row pr0 pl0">
+<div *ngIf="user" class="row">
     <div class="col-md-9 pr0 pl0" id="chat">
         <div id="feedback"></div>
-        <input id="user" data-id="" type="hidden" value="{{ user.name }}" />
-        <input id="message" type="text" placeholder="Message" />
-        <button id="send">Send</button>
+        <input id="user" data-id="{{user._id}}" type="hidden" value="{{user.name}}" />
+        <input id="message" [(ngModel)]="message" name="message"  type="text" placeholder="Message" />
+        <button #btn (click)="onMessageSend(btn)" class="send" id="sendUser" data-user-id="5a8c631e6b63bd28d09cd17c">Send to 
+            <span id="sendUserName"> All Users </span>
+        </button>
         <div id="chat-window">
             <div id="output">
                 <p *ngFor="let c of chats">>
                     <strong> {{u.name}} : </strong> {{message}} </p>
             </div>
-
         </div>
     </div>
     <div class="col-md-3">
-        <div *ngIf="users.lenght;else other_content" class="otherUsers">
-            <p *ngFor="let u of users">{{ u.name }}
+        <div *ngIf="users" class="otherUsers">
+            <p class="chatWith " *ngFor="let u of users">{{ u.name }}
                 <i style="padding-top:3px" class="colorGray fa fa-dot-circle-o pull-right"></i>
             </p>
         </div>
-        <ng-template #other_content>
-            <div class="otherUsers">
-                <p>No other users</p>
-            </div>
-        </ng-template>
-        
     </div>
 </div>
   
