@@ -13,6 +13,7 @@ import * as io from 'socket.io-client';
 export class ChatComponent implements OnInit {
   users: any = [];
   chats: any;
+  chatTo: any = 'All Users';
   socket;
   message;
   user: Object;
@@ -56,4 +57,14 @@ export class ChatComponent implements OnInit {
     });
   }
 
+
+  changeMember(member){
+    this.chatTo = member.innerText;
+    Array.prototype.forEach.call(document.getElementsByClassName("chatWith"), function(el) {
+      el.style.color = "#007bff";
+      el.style.background = "#fff";
+    });
+    member.style.color = "#fff";
+    member.style.background = "#007bff";
+  }
 }

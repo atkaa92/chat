@@ -3,8 +3,8 @@
         <div id="feedback"></div>
         <input id="user" data-id="{{user._id}}" type="hidden" value="{{user.name}}" />
         <input id="message" [(ngModel)]="message" name="message"  type="text" placeholder="Message" />
-        <button #btn (click)="onMessageSend(btn)" class="send" id="sendUser" data-user-id="5a8c631e6b63bd28d09cd17c">Send to 
-            <span id="sendUserName"> All Users </span>
+        <button #btn (click)="onMessageSend(btn)" class="send" id="sendUser" data-user-id="thisIsSocketClientId">Send to 
+            <span id="sendUserName"> {{ chatTo }} </span>
         </button>
         <div id="chat-window">
             <div id="output">
@@ -14,8 +14,11 @@
         </div>
     </div>
     <div class="col-md-3">
+        <div class="otherUsers">
+            <p style="color:white" class="chatWith chatwithAll" #member (click)="changeMember(member)" >All Users </p>
+        </div>
         <div *ngIf="users" class="otherUsers">
-            <p class="chatWith " *ngFor="let u of users">{{ u.name }}
+            <p class="chatWith " #member (click)="changeMember(member)" *ngFor="let u of users">{{ u.name }}
                 <i style="padding-top:3px" class="colorGray fa fa-dot-circle-o pull-right"></i>
             </p>
         </div>
